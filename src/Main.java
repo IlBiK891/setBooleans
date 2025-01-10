@@ -1,26 +1,24 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) {
-        NumberInput numberInput = new NumberInput();
-        ArrayList<Double> multitude = numberInput.getNumbersFromUser();
-        System.out.println("Введённые значения: " + multitude);
-        int input = numberInput.getOrderFromUser();
-        numberInput.closeScanner();
-        if (input > multitude.size()){
-            System.out.println("Пустое множество");
-        }else {
-            Combination combination = new Combination(multitude, input);
-            System.out.println("Все комбинации:");
-            for (int i = 0; i < combination.finish.length; i += input) {
-                // Вывод элементов одной комбинации
-                for (int j = 0; j < input; j++) {
-                    System.out.print(combination.finish[i + j] + " ");
-                }
-                System.out.println(); // Перевод строки
-            }
-        }
-    }
+        // Создаём обработчик ввода
+        InputHandler inputHandler = new InputHandler();
 
+        // Ввод множества
+        Set<String> set = inputHandler.getSetFromUser();
+
+        // Ввод порядка булеана
+        int order = inputHandler.getOrderFromUser();
+
+        // Генерация булеана n-го порядка
+        List<?> nthPowerSet = NthPowerSet.generateNthPowerSet(set, order);
+
+        // Вывод результата
+        System.out.println("Булеан " + order + "-го порядка: ");
+        System.out.println(nthPowerSet);
+
+        // Закрываем сканер
+        inputHandler.closeScanner();
+    }
 }
